@@ -10,7 +10,7 @@ namespace ConsoleApp1
     {
         string firstName;
         string surname;
-        string flatHouseNumber;        //I supposed that number of house can include a letter for example 41B, 34A.
+        string flatHouseNumber; //I supposed that number of house can include a letter for example 41B, 34A.
         City city;
 
         public Guest(string firstName, string surname, string flatHouseNumber, City city)
@@ -25,5 +25,10 @@ namespace ConsoleApp1
         public string Surname { get => surname; set => surname = value; }
         public string FlatHouseNumber { get => flatHouseNumber; set => flatHouseNumber = value; }
         internal City City { get => city; set => city = value; }
+
+        public override string ToString()
+        {
+            return FirstName + " " + Surname + " " + City.ToString() + " " + FlatHouseNumber;
+        }
     }
 }

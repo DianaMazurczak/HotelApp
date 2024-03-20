@@ -25,7 +25,7 @@ namespace ConsoleApp1
             R = r;
         }
 
-        public DateTime BookingDate { get => BookingDate; set => BookingDate = value; }
+        public DateTime BookingDate { get => bookingDate; set => bookingDate = value; }
         public DateTime DateOfRegestration { get => dateOfRegestration; set => dateOfRegestration = value; }
         public int NumberOfAdults { get => numberOfAdults; set => numberOfAdults = value; }
         public int NumberOfChildren { get => numberOfChildren; set => numberOfChildren = value; }
