@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,12 @@ namespace ConsoleApp1
     enum Standard { high = 1, medium = 2, low = 3}
     internal class RoomStandard
     {
+        [Key]
+        public int RoomStandardId { get; set; }
         Standard standard;
         decimal pricePerPerson;
         decimal pricePerChild;
+        public virtual List<Room> Rooms { get; set; }
 
         public RoomStandard(Standard standard, decimal pricePerPerson, decimal pricePerChild)
         {

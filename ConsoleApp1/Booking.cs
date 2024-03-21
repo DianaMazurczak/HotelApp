@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,16 +10,22 @@ namespace ConsoleApp1
 {
     internal class Booking
     {
-        Guest g;
+        [Key]
+        public int BookingId {  get; set; }
+        //Guest g;
         DateTime bookingDate;
         DateTime dateOfRegestration;
         int numberOfAdults;
         int numberOfChildren;
         Room r;
+        public virtual List<BookingRoom> BookingRooms { get; set; }
+        public virtual Specification Specification { get; set; }
+        public int GuestId { get; set; }
+        public virtual Guest Guest { get; set; }
 
-        public Booking(Guest g, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r)
+        public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r)
         {
-            G = g;
+            Guest = guest;
             BookingDate = bookingDate;
             DateOfRegestration = DateTime.Now;
             NumberOfAdults = numberOfAdults;
@@ -29,7 +37,7 @@ namespace ConsoleApp1
         public DateTime DateOfRegestration { get => dateOfRegestration; set => dateOfRegestration = value; }
         public int NumberOfAdults { get => numberOfAdults; set => numberOfAdults = value; }
         public int NumberOfChildren { get => numberOfChildren; set => numberOfChildren = value; }
-        internal Guest G { get => g; set => g = value; }
+        //internal Guest G { get => g; set => g = value; }
         internal Room R { get => r; set => r = value; }
     }
 }
