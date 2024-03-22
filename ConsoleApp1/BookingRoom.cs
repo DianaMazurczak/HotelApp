@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class BookingRoom
+    public class BookingRoom
     {
         // Composite key
         [Key]

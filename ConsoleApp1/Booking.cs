@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Booking
+    public class Booking
     {
         [Key]
         public int BookingId {  get; set; }

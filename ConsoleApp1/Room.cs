@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Room
+    public class Room
     {
         [Key]
         public int RoomId { get; set; }

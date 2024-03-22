@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class City
+    public class City
     {
         [Key]
         public int CityId { get; set; }
@@ -16,7 +16,9 @@ namespace ConsoleApp1
         string postcode;
         string street;
         string country;
+        private List<City> cities;
 
+        public City() { }
         public City(string cityName, string postcode, string street, string country)
         {
             CityName = cityName;
@@ -29,6 +31,7 @@ namespace ConsoleApp1
         public string Postcode { get => postcode; set => postcode = value; }
         public string Street { get => street; set => street = value; }
         public string Country { get => country; set => country = value; }
+        public List<City> Cities { get => cities; set => cities = value; }
 
         public override string ToString()
         {

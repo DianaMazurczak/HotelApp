@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleApp1;
 
 namespace ConsoleApp1
 {
-    internal class HotelDbContext : DbContext
+    public class HotelDbContext : DbContext
     {
         public DbSet<Hotel> Hotele { get; set; }
         public DbSet<Guest> Guests { get; set; }
@@ -16,6 +17,7 @@ namespace ConsoleApp1
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<RoomStandard> RoomStandards { get; set;}
         public DbSet<Specification> Specifications { get; set; }
+        public DbSet<BookingRoom> BookingsRooms { get; set;}
 
     }
 }

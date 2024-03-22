@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Specification
+    public class Specification
     {
         //[Key]
         //public int SpecificationId {  get; set; }

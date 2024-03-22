@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Guest
+    public class Guest
     {
         [Key]
         public int GuestId { get; set; }
@@ -19,6 +19,7 @@ namespace ConsoleApp1
         public int CityId { get; set; }
         public City City { get; set; }
 
+        public Guest() { }
         public Guest(string firstName, string surname, string flatHouseNumber, City city)
         {
             FirstName = firstName;

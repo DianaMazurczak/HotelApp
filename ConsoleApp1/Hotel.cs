@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Hotel
+    public class Hotel
     {
         [Key]
         public int HotelId { get; set; }
-        internal List<Guest> GuestsList { get => guestsList; set => guestsList = value; }
-        internal List<Room> RoomList { get => roomList; set => roomList = value; }
+        public List<Guest> GuestsList { get => guestsList; set => guestsList = value; }
+        public List<Room> RoomList { get => roomList; set => roomList = value; }
         public long Phone { get => phone; set => phone = value; }
         internal City CityHotel { get => cityHotel; set => cityHotel = value; }
-        internal List<Booking> BookingList { get => bookingList; set => bookingList = value; }
+        public List<Booking> BookingList { get => bookingList; set => bookingList = value; }
 
         List<Guest> guestsList;
         List<Room> roomList;
@@ -30,6 +30,16 @@ namespace ConsoleApp1
             Phone = phone;
             CityHotel = cityHotel;
             BookingList = new List<Booking>();
+        }
+        public void AddingGuest(string firstName, string surname, string flatHouseNumber, City city)
+        {
+            Guest newGuest = new(firstName, surname, flatHouseNumber, city);
+            GuestsList.Add(newGuest);
+        }
+        public void AddingBooking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room room)
+        {
+            Booking newBooking = new(guest, bookingDate, numberOfAdults, numberOfChildren, room);
+            BookingList.Add(newBooking);
         }
     }
 }

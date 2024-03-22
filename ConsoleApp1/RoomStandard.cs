@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    enum Standard { high = 1, medium = 2, low = 3}
-    internal class RoomStandard
+    public enum Standard { high = 1, medium = 2, low = 3}
+    public class RoomStandard
     {
         [Key]
         public int RoomStandardId { get; set; }
