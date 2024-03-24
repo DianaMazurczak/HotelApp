@@ -17,52 +17,50 @@ using System.Windows.Shapes;
 namespace WpfApp1
 {
     /// <summary>
-    /// Logika interakcji dla klasy AddingGuests.xaml
+    /// Logika interakcji dla klasy AddHotel.xaml
     /// </summary>
-    public partial class AddingGuests : Window
+    public partial class AddHotel : Window
     {
-        public AddGuestViewModel ViewModel { get; set; }
-        public Hotel CurrentHotel { get; set; }
-        public Guest NewGuest;
-        HotelDbContext context = new();
-        public AddingGuests(Guest newGuest, Hotel currentHotel, HotelDbContext context)
+        public AddHotelViewModel ViewModel { get; set; }
+        public Hotel newHotel;
+        private readonly HotelDbContext dc; // Deklaracja pola HotelDbContext
+
+        public AddHotel(Hotel newHotel, HotelDbContext dc)
         {
             InitializeComponent();
-            ViewModel = new AddGuestViewModel();
+            ViewModel = new AddHotelViewModel();
             DataContext = ViewModel;
-            CurrentHotel = currentHotel;
-            NewGuest = newGuest;
-            this.context = context;
+            this.newHotel = newHotel;
+            this.dc = dc;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.IsValid())
+            if (ViewModel.IsValid() && !dc.Hotele.Any(x => x.Name == ViewModel.Name))
             {
-                string name = ViewModel.FirstName;
-                string surname = ViewModel.Surname;
+                string name = ViewModel.Name;
+                long phone = ViewModel.Phone;
                 string postcode = ViewModel.Postcode;
                 string city = ViewModel.City;
                 string country = ViewModel.Country;
                 string street = ViewModel.Street;
                 string number = ViewModel.Number;
                 City newCity = new();
-                City existiongCity = context.Cities.FirstOrDefault(c => c.CityName == name);
-                if(existiongCity != null)
+                City existiongCity = dc.Cities.FirstOrDefault(c => c.CityName == name);
+                if (existiongCity != null)
                 {
                     newCity = existiongCity;
                 }
-                else 
-                { 
-                    newCity = new(city, postcode, street, number); 
-                    context.Cities.Add(newCity);
-                    context.SaveChanges();
+                else
+                {
+                    newCity = new(city, postcode, street, number);
+                    dc.Cities.Add(newCity);
+                    dc.SaveChanges();
                 }
-                CurrentHotel.AddingGuest(name, surname, number, newCity);
-                NewGuest = new Guest(name, surname, number, newCity, CurrentHotel);
-                context.Guests.Add(NewGuest);
-                context.SaveChanges();
-                MessageBox.Show("The new guest was saved correctly.", "Save", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.newHotel = new Hotel(name, phone, newCity);
+                dc.Hotele.Add(newHotel);
+                dc.SaveChanges();
+                MessageBox.Show("The new hotel was saved correctly.", "Save", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -72,17 +70,17 @@ namespace WpfApp1
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            context.SaveChanges();
+            dc.SaveChanges();
             Close();
         }
     }
-    public class AddGuestViewModel
+    public class AddHotelViewModel
     {
         [Required(ErrorMessage = "Pole 'First name' jest wymagane.")]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Pole 'Surname' jest wymagane.")]
-        public string Surname { get; set; }
+        public long Phone { get; set; }
 
         [Required(ErrorMessage = "Pole 'Postcode' jest wymagane.")]
         public string Postcode { get; set; }

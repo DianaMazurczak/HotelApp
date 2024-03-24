@@ -23,7 +23,10 @@ namespace ConsoleApp1
             PricePerPerson = pricePerPerson;
             PricePerChild = pricePerChild;
         }
-
+        public RoomStandard(Standard standard, decimal pricePerPerson, decimal pricePerChild, int roomStandardId):this(standard, pricePerPerson, pricePerChild)
+        {
+            RoomStandardId = roomStandardId;
+        }
         public decimal PricePerPerson { get => pricePerPerson; set => pricePerPerson = value; }
         public decimal PricePerChild { get => pricePerChild; set => pricePerChild = value; }
         internal Standard Standard { get => standard; set => standard = value; }

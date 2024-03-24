@@ -22,7 +22,9 @@ namespace ConsoleApp1
         public virtual Specification Specification { get; set; }
         public int GuestId { get; set; }
         public virtual Guest Guest { get; set; }
+        public virtual Hotel Hotel { get; set; }
 
+        public Booking() { }
         public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r)
         {
             Guest = guest;
@@ -32,7 +34,10 @@ namespace ConsoleApp1
             NumberOfChildren = numberOfChildren;
             R = r;
         }
-
+        public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r, Hotel hotel): this(guest, bookingDate, numberOfAdults, numberOfChildren, r)
+        {
+            Hotel = hotel;
+        }
         public DateTime BookingDate { get => bookingDate; set => bookingDate = value; }
         public DateTime DateOfRegestration { get => dateOfRegestration; set => dateOfRegestration = value; }
         public int NumberOfAdults { get => numberOfAdults; set => numberOfAdults = value; }

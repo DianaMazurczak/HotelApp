@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="AddBooking" Height="450" Width="800">
+        Title="AddBooking" Height="464" Width="268">
     <Grid>
-        
+        <DatePicker x:Name="dpBooking" Text="{Binding BookingDate}" HorizontalAlignment="Left" Height="30" Margin="37,39,0,0" VerticalAlignment="Top" Width="194"/>
+        <TextBox x:Name="txtNumOfAdults" Text="{Binding NumOfAdults}" HorizontalAlignment="Left" Height="40" Margin="37,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
+        <TextBox x:Name="txtNumOfChildren" Text="{Binding NumOfChildren}" HorizontalAlignment="Left" Height="40" Margin="37,119,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"/>
+        <ComboBox x:Name="cbRoom" HorizontalAlignment="Left" Height="35" Margin="37,164,0,0" VerticalAlignment="Top" Width="194"/>
+        <ComboBox x:Name="cbGuest" HorizontalAlignment="Left" Height="35" Margin="37,204,0,0" VerticalAlignment="Top" Width="194"/>
+        <Button x:Name="SaveBtn" Content="Save" HorizontalAlignment="Left" Height="46" Margin="60,311,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="SaveBtn_Click"/>
+        <Button x:Name="CloseBtn" Content="Close" HorizontalAlignment="Left" Height="46" Margin="60,365,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="CloseBtn_Click"/>
     </Grid>
 </Window>

@@ -18,14 +18,21 @@ namespace ConsoleApp1
         public virtual List<Booking> Bookings { get; set; }
         public int CityId { get; set; }
         public City City { get; set; }
+        public Hotel Hotel { get; set; }
 
-        public Guest() { }
-        public Guest(string firstName, string surname, string flatHouseNumber, City city)
+        public Guest() { 
+        }
+        public Guest(string firstName, string surname, string flatHouseNumber, City city) : this()
         {
             FirstName = firstName;
             Surname = surname;
             FlatHouseNumber = flatHouseNumber;
             City = city;
+        }
+
+        public Guest(string firstName, string surname, string flatHouseNumber, City city, Hotel hotel) : this(firstName, surname, flatHouseNumber, city)
+        {
+            Hotel = hotel;
         }
 
         public string FirstName { get => firstName; set => firstName = value; }
@@ -35,7 +42,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return FirstName + " " + Surname + " " + City.ToString() + " " + FlatHouseNumber;
+            return FirstName + " " + Surname;
         }
     }
 }
