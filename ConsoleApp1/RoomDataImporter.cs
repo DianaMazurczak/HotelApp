@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CsvHelper.Configuration;
+using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,23 @@ namespace ConsoleApp1
 
             try
             {
+                //var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
+                //{
+                //    Delimiter = ";",
+                //    //HasHeaderRecord = false,
+                //    HeaderValidated = null,
+                //    MissingFieldFound = null,
+                //};
+                //using var reader = new StreamReader("C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv");
+                //using var csv = new CsvReader(reader, configuration);
+                //csv.Context.RegisterClassMap<RoomMap>();
+                //var records = csv.GetRecords<Room>().ToList();
+                //foreach (var room in records)
+                //{
+                //    room.Hotel = hotel;
+                //    dc.Rooms.Add(room);
+                //}
+                //dc.SaveChanges();
                 // Otwórz plik CSV do odczytu
                 using (StreamReader reader = new StreamReader(filePath))
                 {
@@ -24,7 +44,7 @@ namespace ConsoleApp1
                     while ((line = reader.ReadLine()) != null)
                     {
                         // Podziel linię na poszczególne wartości za pomocą przecinka jako separatora
-                        string[] values = line.Split(',');
+                        string[] values = line.Split(';');
 
                         // Parsuj wartości i twórz obiekt Room
                         if (values.Length >= 5)
@@ -39,7 +59,7 @@ namespace ConsoleApp1
                             // Poniżej możesz dodać dodatkowe parsowanie dla innych właściwości, takich jak RoomStandardId, itp.
                             // Możesz również utworzyć obiekty RoomStandard, Hotel itp. na podstawie dodatkowych wartości w pliku CSV
                             hotel.AddRoomStandard(dc);
-                            Room room = new Room(roomNumber, floor, maxNumberOfGuests, roomStandard, vacancy, hotel);
+                            Room room = new Room(roomId, roomNumber, floor, maxNumberOfGuests, roomStandard, vacancy, hotel);
                             dc.Rooms.Add(room);
                             hotel.RoomList.Add(room);
                         }

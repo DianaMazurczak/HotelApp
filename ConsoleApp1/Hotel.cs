@@ -58,6 +58,7 @@ namespace ConsoleApp1
             dc.RoomStandards.Add(rs1);
             dc.RoomStandards.Add(rs2);
             dc.RoomStandards.Add(rs3);
+            dc.SaveChanges();
         }
     }
 }

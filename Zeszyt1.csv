@@ -1,0 +1,8 @@
+RoomId;RoomStandardId;RoomNumber;Floor;MaxNumberOfGuests
+1;1;101;1;1
+2;1;102;1;2
+3;3;103;1;5
+4;3;201;2;4
+5;2;202;2;3
+6;2;203;2;2
+7;1;204;2;1

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,10 @@ namespace ConsoleApp1
         Standard standard;
         decimal pricePerPerson;
         decimal pricePerChild;
-        public virtual List<Room> Rooms { get; set; }
-
+        [InverseProperty("RoomStandard")]
+        public virtual ICollection<Room> Rooms { get; set; }
+        // public virtual List<Room> Rooms { get; set; }
+        public RoomStandard() { }
         public RoomStandard(Standard standard, decimal pricePerPerson, decimal pricePerChild)
         {
             Standard = standard;
@@ -29,6 +32,6 @@ namespace ConsoleApp1
         }
         public decimal PricePerPerson { get => pricePerPerson; set => pricePerPerson = value; }
         public decimal PricePerChild { get => pricePerChild; set => pricePerChild = value; }
-        internal Standard Standard { get => standard; set => standard = value; }
+        public Standard Standard { get => standard; set => standard = value; }
     }
 }

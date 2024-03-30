@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConsoleApp1;
+using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace WpfApp1
 {
@@ -18,7 +23,7 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private HotelDbContext dc;
+        public HotelDbContext dc;
         public Hotel CurrentHotel;
         public MainWindow()
         {
@@ -34,7 +39,7 @@ namespace WpfApp1
             if(CurrentHotel is not null )
             {
                 GuestList.ItemsSource = new ObservableCollection<Guest>(dc.Guests.Where(g => g.Hotel.HotelId == CurrentHotel.HotelId).ToList());
-                RoomList.ItemsSource = CurrentHotel.RoomList;
+                RoomList.ItemsSource = new ObservableCollection<Room>(dc.Rooms.Where(r => r.Hotel.HotelId == CurrentHotel.HotelId).ToList());
                 //CurrentHotel.AddRoomStandard(dc);
             }
         }
@@ -79,6 +84,40 @@ namespace WpfApp1
         {
             CurrentHotel = dc.Hotele.FirstOrDefault(h => h.Name == cbHotels.SelectedItem);
             GuestList.ItemsSource = new ObservableCollection<Guest>(dc.Guests.Where(g => g.Hotel.HotelId == CurrentHotel.HotelId).ToList());
+            CurrentHotel.AddRoomStandard(dc);
+            //using var streamReader = File.OpenText("C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv");
+            //var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
+            //{
+            //    Delimiter = ";"
+            //};
+            //using var csvReader = new CsvReader(streamReader, CultureInfo.CurrentCulture);
+            var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ";",
+                //HasHeaderRecord = false,
+                HeaderValidated = null,
+                MissingFieldFound = null,
+            };
+            using var reader = new StreamReader("C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv");
+            using var csv = new CsvReader(reader, configuration);
+            csv.Context.RegisterClassMap<RoomMap>();
+            var records = csv.GetRecords<Room>().ToList();
+            foreach (var room in records)
+            {
+                room.Hotel = CurrentHotel;
+                RoomStandard roomStandard = dc.RoomStandards.FirstOrDefault(rs => rs.RoomStandardId == room.RsId);
+                room.RoomStandard = roomStandard;
+                //room.RoomStandardId = roomStandard.RoomStandardId;
+                dc.Rooms.Add(room);
+            }
+            dc.SaveChanges();
+
+            //RoomDataImporter roomDataImporter = new RoomDataImporter();
+            //string filePath = "C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv";
+            //roomDataImporter.ImportRoomsFromCSV(filePath, dc, CurrentHotel);
+            MessageBox.Show($"Pobrano {dc.Rooms.Count()} pokoi dla hotelu {CurrentHotel.Name}", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+            //MessageBox.Show("Import successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            RoomList.ItemsSource = new ObservableCollection<Room>(dc.Rooms.Where(r => r.Hotel.HotelId == CurrentHotel.HotelId).ToList());
         }
 
         private void btnAddBooking_Click(object sender, RoutedEventArgs e)
@@ -91,7 +130,7 @@ namespace WpfApp1
                 return;
             }
             RoomDataImporter roomDataImporter = new RoomDataImporter();
-            string filePath = "C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.xlsx";
+            string filePath = "C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv";
             roomDataImporter.ImportRoomsFromCSV(filePath, dc, CurrentHotel);
             MessageBox.Show("Import successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             Booking newBooking = new();
@@ -102,6 +141,7 @@ namespace WpfApp1
             {
                 dc.SaveChanges();
             }
+            window.DataContext = new BookingViewModel();
         }
     }
 }
