@@ -1,12 +1,13 @@
 ﻿<Window x:Class="WpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        WindowState="Maximized"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid  x:Name="InitialView" Visibility="Visible">
+    <Grid x:Name="InitialView" Visibility="Visible" VerticalAlignment="Stretch">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
@@ -22,8 +23,7 @@
             <RowDefinition Height="15*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="cbHotels" Visibility="Visible" Margin="10,10,182,109" Grid.Row="1" Grid.Column="1" Background="#FF3E7379" Foreground="White" BorderBrush="{x:Null}" FontFamily="Calibri" FontSize="18" FontWeight="Bold"/>
-        <Calendar Grid.Column="2" HorizontalAlignment="Center" Height="165" VerticalAlignment="Top" Width="178" Margin="0,259,0,0" Grid.RowSpan="2" FontFamily="Calibri" FontSize="16" Foreground="{x:Null}">
+        <Calendar Grid.Row="1" Grid.Column="2" Margin="0,0,20,20" FontFamily="Calibri" FontSize="16" Foreground="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Calendar.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFA3AEB9"/>
@@ -39,52 +39,58 @@
                 </LinearGradientBrush>
             </Calendar.Background>
         </Calendar>
-        <Image HorizontalAlignment="Left" Height="257" VerticalAlignment="Top"  Width="364" Source="Assets/hotel.jpg" Grid.ColumnSpan="4" Margin="218,0,0,0" />
-        <ListView x:Name="GuestList" HorizontalAlignment="Center" Height="261" VerticalAlignment="Center" Width="218" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="16">
+        <Image Source="Assets/hotel.jpg" Grid.Column="1" Grid.Row="0" />
+        <ListView x:Name="GuestList" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="RoomList" HorizontalAlignment="Center" Height="261" VerticalAlignment="Center" Width="218" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="16">
+        <ListView x:Name="RoomList" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddBooking" Grid.Column="1" Content="Add Booking" HorizontalAlignment="Center" Height="50" Margin="0,78,0,0" Grid.Row="1" VerticalAlignment="Top" Width="344" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Click="btnAddBooking_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94B6BA"/>
-                    <GradientStop Color="#FF3E7379" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnAddGuest" Content="Add Guest" HorizontalAlignment="Center" Margin="0,10,0,109" Grid.Row="1" Width="198" Foreground="White" BorderBrush="{x:Null}" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Click="btnAddGuest_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94B6BA"/>
-                    <GradientStop Color="#FF3E7379" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnStatistics" Content="Show statistics" HorizontalAlignment="Center" Height="55" Margin="0,75,0,0" Grid.Row="1" VerticalAlignment="Top" Width="198" Foreground="White" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnStatistics_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94B6BA"/>
-                    <GradientStop Color="#FF3E7379" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnAddHotel" Content="Add Hotel" HorizontalAlignment="Left" Height="55" Margin="199,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Foreground="White" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Grid.Column="1" Click="btnAddHotel_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94B6BA"/>
-                    <GradientStop Color="#FF3E7379" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button x:Name="btnAddGuest" Margin="8" Height="40" Content="Add Guest" Foreground="White" BorderBrush="{x:Null}" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Click="btnAddGuest_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF94B6BA"/>
+                        <GradientStop Color="#FF3E7379" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnStatistics" Margin="8" Height="40" Content="Show data" Foreground="White" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnStatistics_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF94B6BA"/>
+                        <GradientStop Color="#FF3E7379" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnAddHotel" Margin="8" Content="Add Hotel" Height="40" Foreground="White" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnAddHotel_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF94B6BA"/>
+                        <GradientStop Color="#FF3E7379" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <ComboBox x:Name="cbHotels" Visibility="Visible" Height="40" Background="#FF3E7379" Foreground="White" BorderBrush="{x:Null}" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Margin="7"/>
+            <Button x:Name="btnAddBooking" Content="Add Booking" Height="40" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Click="btnAddBooking_Click" Margin="7">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF94B6BA"/>
+                        <GradientStop Color="#FF3E7379" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Window>

@@ -85,12 +85,6 @@ namespace WpfApp1
             CurrentHotel = dc.Hotele.FirstOrDefault(h => h.Name == cbHotels.SelectedItem);
             GuestList.ItemsSource = new ObservableCollection<Guest>(dc.Guests.Where(g => g.Hotel.HotelId == CurrentHotel.HotelId).ToList());
             CurrentHotel.AddRoomStandard(dc);
-            //using var streamReader = File.OpenText("C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv");
-            //var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
-            //{
-            //    Delimiter = ";"
-            //};
-            //using var csvReader = new CsvReader(streamReader, CultureInfo.CurrentCulture);
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ";",
@@ -111,12 +105,7 @@ namespace WpfApp1
                 dc.Rooms.Add(room);
             }
             dc.SaveChanges();
-
-            //RoomDataImporter roomDataImporter = new RoomDataImporter();
-            //string filePath = "C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv";
-            //roomDataImporter.ImportRoomsFromCSV(filePath, dc, CurrentHotel);
             MessageBox.Show($"Pobrano {dc.Rooms.Count()} pokoi dla hotelu {CurrentHotel.Name}", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
-            //MessageBox.Show("Import successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             RoomList.ItemsSource = new ObservableCollection<Room>(dc.Rooms.Where(r => r.Hotel.HotelId == CurrentHotel.HotelId).ToList());
         }
 
