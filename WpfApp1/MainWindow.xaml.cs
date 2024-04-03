@@ -60,8 +60,8 @@ namespace WpfApp1
             {
                 CurrentHotel.AddingGuest2(newGuest);
                 dc.Guests.Add(newGuest);
-                dc.SaveChanges();
-                GuestList.ItemsSource = new ObservableCollection<Guest>(CurrentHotel.GuestsList);
+                //dc.SaveChanges();
+                //GuestList.ItemsSource = new ObservableCollection<Guest>(CurrentHotel.GuestsList);
             }
             window.DataContext = new AddGuestViewModel { NewGuest = newGuest };
         }
@@ -85,6 +85,13 @@ namespace WpfApp1
             CurrentHotel = dc.Hotele.FirstOrDefault(h => h.Name == cbHotels.SelectedItem);
             GuestList.ItemsSource = new ObservableCollection<Guest>(dc.Guests.Where(g => g.Hotel.HotelId == CurrentHotel.HotelId).ToList());
             CurrentHotel.AddRoomStandard(dc);
+
+            if (dc.Rooms.Any(r => r.Hotel.HotelId == CurrentHotel.HotelId))
+            {
+                RoomList.ItemsSource = new ObservableCollection<Room>(dc.Rooms.Where(r => r.Hotel.HotelId == CurrentHotel.HotelId).ToList());
+                return;
+            }
+
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ";",

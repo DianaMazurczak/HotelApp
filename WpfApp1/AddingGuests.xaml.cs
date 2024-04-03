@@ -47,7 +47,7 @@ namespace WpfApp1
                 string street = ViewModel.Street;
                 string number = ViewModel.Number;
                 City newCity = new();
-                City existiongCity = context.Cities.FirstOrDefault(c => c.CityName == name);
+                City existiongCity = context.Cities.FirstOrDefault(c => c.Postcode == postcode);
                 if(existiongCity != null)
                 {
                     newCity = existiongCity;
@@ -58,7 +58,6 @@ namespace WpfApp1
                     context.Cities.Add(newCity);
                     context.SaveChanges();
                 }
-                CurrentHotel.AddingGuest(name, surname, number, newCity);
                 NewGuest = new Guest(name, surname, number, newCity, CurrentHotel);
                 context.Guests.Add(NewGuest);
                 context.SaveChanges();
@@ -72,7 +71,7 @@ namespace WpfApp1
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            context.SaveChanges();
+            //context.SaveChanges();
             Close();
         }
     }
