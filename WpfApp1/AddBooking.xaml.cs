@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -64,14 +65,44 @@ namespace WpfApp1
     }
     public class BookingViewModel
     {
+        private int numOfAdults;
+        private int numOfChildren;
+
         [Required(ErrorMessage = "Pole 'Booking date' jest wymagane.")]
         public DateTime BookingDate { get; set; }
 
         [Required(ErrorMessage = "Pole 'Number of adults' jest wymagane.")]
-        public int NumOfAdults { get; set; }
-
+        public int NumOfAdults
+        {
+            get => numOfAdults;
+            set
+            {
+                if (int.TryParse(value.ToString(), out int result))
+                {
+                    numOfAdults = result;
+                }
+                else
+                {
+                    MessageBox.Show("Wprowadzona wartość nie jest prawidłowa. Wprowadź liczbę całkowitą.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
         [Required(ErrorMessage = "Pole 'Number of children' jest wymagane.")]
-        public int NumOfChildren { get; set; }
+        public int NumOfChildren
+        {
+            get => numOfChildren;
+            set
+            {
+                if (int.TryParse(value.ToString(), out int result))
+                {
+                    numOfChildren = result;
+                }
+                else{
+                    MessageBox.Show("Wprowadzona wartość nie jest prawidłowa. Wprowadź liczbę całkowitą.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
 
         [Required(ErrorMessage = "Pole 'Room' jest wymagane.")]
         public Room Room { get; set; }
