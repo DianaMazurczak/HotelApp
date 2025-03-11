@@ -11,34 +11,32 @@ namespace ConsoleApp1
     {
         [Key]
         public int GuestId { get; set; }
-        string firstName;
-        string surname;
-        string flatHouseNumber; //I supposed that number of house can include a letter for example 41B, 34A.
-        //City city;
-        public virtual List<Booking> Bookings { get; set; }
-        public int CityId { get; set; }
-        public City City { get; set; }
-        public Hotel Hotel { get; set; }
 
-        public Guest() { 
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string FlatHouseNumber { get; set; }
+
+        public int CityId { get; set; }
+        public virtual City City { get; set; }
+
+        public int? HotelId { get; set; }
+        public virtual Hotel Hotel { get; set; }
+
+        public virtual List<Booking> Bookings { get; set; }
+
+        public Guest() 
+        {
+            Bookings = new List<Booking>();
         }
-        public Guest(string firstName, string surname, string flatHouseNumber, City city) : this()
+
+        public Guest(string firstName, string surname, string flatHouseNumber, City city, Hotel hotel) : this()
         {
             FirstName = firstName;
             Surname = surname;
             FlatHouseNumber = flatHouseNumber;
             City = city;
-        }
-
-        public Guest(string firstName, string surname, string flatHouseNumber, City city, Hotel hotel) : this(firstName, surname, flatHouseNumber, city)
-        {
             Hotel = hotel;
         }
-
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string Surname { get => surname; set => surname = value; }
-        public string FlatHouseNumber { get => flatHouseNumber; set => flatHouseNumber = value; }
-        //internal City City { get => city; set => city = value; }
 
         public override string ToString()
         {

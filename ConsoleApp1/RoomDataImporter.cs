@@ -16,24 +16,6 @@ namespace ConsoleApp1
 
             try
             {
-                //var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
-                //{
-                //    Delimiter = ";",
-                //    //HasHeaderRecord = false,
-                //    HeaderValidated = null,
-                //    MissingFieldFound = null,
-                //};
-                //using var reader = new StreamReader("C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv");
-                //using var csv = new CsvReader(reader, configuration);
-                //csv.Context.RegisterClassMap<RoomMap>();
-                //var records = csv.GetRecords<Room>().ToList();
-                //foreach (var room in records)
-                //{
-                //    room.Hotel = hotel;
-                //    dc.Rooms.Add(room);
-                //}
-                //dc.SaveChanges();
-                // Otwórz plik CSV do odczytu
                 using (StreamReader reader = new StreamReader(filePath))
                 {
                     // Pomijaj pierwszą linię, ponieważ zawiera nagłówki kolumn
@@ -58,7 +40,7 @@ namespace ConsoleApp1
                             bool vacancy = true;
                             // Poniżej możesz dodać dodatkowe parsowanie dla innych właściwości, takich jak RoomStandardId, itp.
                             // Możesz również utworzyć obiekty RoomStandard, Hotel itp. na podstawie dodatkowych wartości w pliku CSV
-                            hotel.AddRoomStandard(dc);
+                            // hotel.AddRoomStandard(dc);
                             Room room = new Room(roomId, roomNumber, floor, maxNumberOfGuests, roomStandard, vacancy, hotel);
                             dc.Rooms.Add(room);
                             hotel.RoomList.Add(room);

@@ -11,13 +11,16 @@ namespace ConsoleApp1
     {
         [Key]
         public int CityId { get; set; }
+
+        public string CityName { get; set; }
+        public string Postcode { get; set; }
+        public string Street { get; set; }
+        public string Country { get; set; }
+
         public virtual List<Guest> Guests { get; set; }
-        string cityName;
-        string postcode;
-        string street;
-        string country;
 
         public City() { }
+
         public City(string cityName, string postcode, string street, string country)
         {
             CityName = cityName;
@@ -25,11 +28,6 @@ namespace ConsoleApp1
             Street = street;
             Country = country;
         }
-
-        public string CityName { get => cityName; set => cityName = value; }
-        public string Postcode { get => postcode; set => postcode = value; }
-        public string Street { get => street; set => street = value; }
-        public string Country { get => country; set => country = value; }
 
         public override string ToString()
         {

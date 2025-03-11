@@ -40,7 +40,6 @@ namespace WpfApp1
             {
                 GuestList.ItemsSource = new ObservableCollection<Guest>(dc.Guests.Where(g => g.Hotel.HotelId == CurrentHotel.HotelId).ToList());
                 RoomList.ItemsSource = new ObservableCollection<Room>(dc.Rooms.Where(r => r.Hotel.HotelId == CurrentHotel.HotelId).ToList());
-                //CurrentHotel.AddRoomStandard(dc);
             }
         }
 

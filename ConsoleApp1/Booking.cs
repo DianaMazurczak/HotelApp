@@ -11,38 +11,30 @@ namespace ConsoleApp1
     public class Booking
     {
         [Key]
-        public int BookingId {  get; set; }
-        //Guest g;
-        DateTime bookingDate;
-        DateTime dateOfRegestration;
-        int numberOfAdults;
-        int numberOfChildren;
-        Room r;
-        public virtual List<BookingRoom> BookingRooms { get; set; }
-        public virtual Specification Specification { get; set; }
+        public int BookingId { get; set; }
+
+        public DateTime BookingDate { get; set; }
+        public DateTime DateOfRegistration { get; set; }
+        public int NumberOfAdults { get; set; }
+        public int NumberOfChildren { get; set; }
+
         public int GuestId { get; set; }
         public virtual Guest Guest { get; set; }
+
+        public int HotelId { get; set; }
         public virtual Hotel Hotel { get; set; }
 
-        public Booking() { }
-        public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r)
-        {
-            Guest = guest;
-            BookingDate = bookingDate;
-            DateOfRegestration = DateTime.Now;
-            NumberOfAdults = numberOfAdults;
-            NumberOfChildren = numberOfChildren;
-            R = r;
-        }
-        public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r, Hotel hotel): this(guest, bookingDate, numberOfAdults, numberOfChildren, r)
+        public virtual List<BookingRoom> BookingRooms { get; set; } = new();
+        public virtual Specification Specification { get; set; }
+
+        public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r, Hotel hotel)
         {
             Hotel = hotel;
+            Guest = guest;
+            BookingDate = bookingDate;
+            DateOfRegistration = DateTime.Now;
+            NumberOfAdults = numberOfAdults;
+            NumberOfChildren = numberOfChildren;
         }
-        public DateTime BookingDate { get => bookingDate; set => bookingDate = value; }
-        public DateTime DateOfRegestration { get => dateOfRegestration; set => dateOfRegestration = value; }
-        public int NumberOfAdults { get => numberOfAdults; set => numberOfAdults = value; }
-        public int NumberOfChildren { get => numberOfChildren; set => numberOfChildren = value; }
-        //internal Guest G { get => g; set => g = value; }
-        internal Room R { get => r; set => r = value; }
     }
 }

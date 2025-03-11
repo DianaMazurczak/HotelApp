@@ -10,7 +10,6 @@ namespace ConsoleApp1
 {
     public class BookingRoom
     {
-        // Composite key
         [Key]
         [Column(Order = 1)]
         public int BookingId { get; set; }
@@ -19,8 +18,7 @@ namespace ConsoleApp1
         [Column(Order = 2)]
         public int RoomId { get; set; }
 
-        // Navigation properties
-        public Booking Booking { get; set; }
-        public Room Room { get; set; }
+        public virtual Booking Booking { get; set; }
+        public virtual Room Room { get; set; }
     }
 }
