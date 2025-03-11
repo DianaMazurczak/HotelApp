@@ -25,7 +25,7 @@
                 .ForeignKey("dbo.Guests", t => t.GuestId, cascadeDelete: true)
                 .ForeignKey("dbo.Rooms", t => t.R_RoomId)
                 .ForeignKey("dbo.Specifications", t => t.Specification_BookingId)
-                .ForeignKey("dbo.Hotels", t => t.Hotel_HotelId)
+                .ForeignKey("dbo.Hotels", t => t.Hotel_HotelId, cascadeDelete: false)
                 .Index(t => t.GuestId)
                 .Index(t => t.R_RoomId)
                 .Index(t => t.Specification_BookingId)
@@ -57,7 +57,7 @@
                         Hotel_HotelId = c.Int(),
                     })
                 .PrimaryKey(t => t.RoomId)
-                .ForeignKey("dbo.RoomStandards", t => t.RoomStandardId, cascadeDelete: true)
+                .ForeignKey("dbo.RoomStandards", t => t.RoomStandardId)
                 .ForeignKey("dbo.Hotels", t => t.Hotel_HotelId)
                 .Index(t => t.RoomStandardId)
                 .Index(t => t.Hotel_HotelId);
@@ -85,7 +85,7 @@
                     })
                 .PrimaryKey(t => t.GuestId)
                 .ForeignKey("dbo.Cities", t => t.CityId, cascadeDelete: true)
-                .ForeignKey("dbo.Hotels", t => t.Hotel_HotelId)
+                .ForeignKey("dbo.Hotels", t => t.Hotel_HotelId, cascadeDelete: false)
                 .Index(t => t.CityId)
                 .Index(t => t.Hotel_HotelId);
             

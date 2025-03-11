@@ -16,7 +16,6 @@ namespace ConsoleApp1
         public DbSet<City> Cities { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<RoomStandard> RoomStandards { get; set;}
-        public DbSet<Specification> Specifications { get; set; }
         public DbSet<BookingRoom> BookingsRooms { get; set;}
 
     }

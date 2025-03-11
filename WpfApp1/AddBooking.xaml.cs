@@ -15,6 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DataValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
+using DataValidator = System.ComponentModel.DataAnnotations.Validator;
+using DataValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace WpfApp1
 {
@@ -24,32 +27,21 @@ namespace WpfApp1
     public partial class AddBooking : Window
     {
         public BookingViewModel ViewModel { get; set; }
-        HotelDbContext dc = new();
-        public Hotel CurrentHotel { get; set; }
-        public AddBooking(Booking newBooking, HotelDbContext context, Hotel currentHotel)
+
+        public AddBooking(HotelDbContext context, Hotel currentHotel)
         {
             InitializeComponent();
-            dc = context;
-            ViewModel = new BookingViewModel();
+            ViewModel = new BookingViewModel(context, currentHotel);
             DataContext = ViewModel;
-            CurrentHotel = currentHotel;
-            cbGuest.ItemsSource = new ObservableCollection<Guest>(dc.Guests.Where(g => g.Hotel.HotelId == CurrentHotel.HotelId).ToList());
-            cbRoom.ItemsSource = new ObservableCollection<Room>(dc.Rooms.Where(r => r.Hotel.HotelId == CurrentHotel.HotelId).ToList());
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ViewModel.IsValid())
             {
-                DateTime bookingDate = ViewModel.BookingDate;
-                int numOfAdults = ViewModel.NumOfAdults;
-                int numOfChildren = ViewModel.NumOfChildren;
-                Room room = ViewModel.Room;
-                Guest guest = ViewModel.Guest;
-                Booking newBooking = new(guest, bookingDate, numOfAdults, numOfChildren, room, CurrentHotel);
-                dc.Bookings.Add(newBooking);
-                dc.SaveChanges();
+                ViewModel.SaveBooking();
                 MessageBox.Show("The new booking was saved correctly.", "Save", MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogResult = true; // Zamknij okno po zapisie
             }
             else
             {
@@ -59,50 +51,26 @@ namespace WpfApp1
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            dc.SaveChanges();
             Close();
         }
     }
+
     public class BookingViewModel
     {
-        private int numOfAdults;
-        private int numOfChildren;
+        private readonly HotelDbContext _context;
+        private readonly Hotel _currentHotel;
 
         [Required(ErrorMessage = "Pole 'Booking date' jest wymagane.")]
-        public DateTime BookingDate { get; set; }
+        public DateTime BookingDate { get; set; } = DateTime.Now;
+
+        [Required(ErrorMessage = "Pole 'DateOfCheckOut' jest wymagane.")]
+        public DateTime DateOfCheckOut { get; set; }
 
         [Required(ErrorMessage = "Pole 'Number of adults' jest wymagane.")]
-        public int NumOfAdults
-        {
-            get => numOfAdults;
-            set
-            {
-                if (int.TryParse(value.ToString(), out int result))
-                {
-                    numOfAdults = result;
-                }
-                else
-                {
-                    MessageBox.Show("Wprowadzona wartość nie jest prawidłowa. Wprowadź liczbę całkowitą.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-        [Required(ErrorMessage = "Pole 'Number of children' jest wymagane.")]
-        public int NumOfChildren
-        {
-            get => numOfChildren;
-            set
-            {
-                if (int.TryParse(value.ToString(), out int result))
-                {
-                    numOfChildren = result;
-                }
-                else{
-                    MessageBox.Show("Wprowadzona wartość nie jest prawidłowa. Wprowadź liczbę całkowitą.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
+        public int NumOfAdults { get; set; }
 
+        [Required(ErrorMessage = "Pole 'Number of children' jest wymagane.")]
+        public int NumOfChildren { get; set; }
 
         [Required(ErrorMessage = "Pole 'Room' jest wymagane.")]
         public Room Room { get; set; }
@@ -110,9 +78,34 @@ namespace WpfApp1
         [Required(ErrorMessage = "Pole 'Guest' jest wymagane.")]
         public Guest Guest { get; set; }
 
+        public ObservableCollection<Room> Rooms { get; set; }
+        public ObservableCollection<Guest> Guests { get; set; }
+
+        public BookingViewModel(HotelDbContext context, Hotel currentHotel)
+        {
+            _context = context;
+            _currentHotel = currentHotel;
+            LoadRoomsAndGuests();
+        }
+
+        private void LoadRoomsAndGuests()
+        {
+            Rooms = new ObservableCollection<Room>(_context.Rooms.Where(r => r.Hotel.HotelId == _currentHotel.HotelId));
+            Guests = new ObservableCollection<Guest>(_context.Guests.Where(g => g.Hotel.HotelId == _currentHotel.HotelId));
+        }
+
         public bool IsValid()
         {
-            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
+            var results = new List<DataValidationResult>();
+            return DataValidator.TryValidateObject(this, new DataValidationContext(this), results, true);
+        }
+
+
+        public void SaveBooking()
+        {
+            var newBooking = new Booking(Guest, BookingDate, DateOfCheckOut, NumOfAdults, NumOfChildren, Room, _currentHotel);
+            _context.Bookings.Add(newBooking);
+            _context.SaveChanges();
         }
     }
 }

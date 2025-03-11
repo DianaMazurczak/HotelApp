@@ -42,20 +42,20 @@ namespace ConsoleApp1
         {
             GuestsList.Add(newGuest);
         }
-        public void AddingBooking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room room)
+        public void AddingBooking(Guest guest, DateTime bookingDate, DateTime dateOfCheckOut, int numberOfAdults, int numberOfChildren, Room room)
         {
-            Booking newBooking = new(guest, bookingDate, numberOfAdults, numberOfChildren, room, this);
+            Booking newBooking = new(guest, bookingDate, dateOfCheckOut, numberOfAdults, numberOfChildren, room, this);
             BookingList.Add(newBooking);
         }
-        //public void AddRoomStandard(HotelDbContext dc)
-        //{
-        //    RoomStandard rs1 = new(Standard.medium, 200, 180, 1);
-        //    RoomStandard rs2 = new(Standard.medium, 180, 150, 2);
-        //    RoomStandard rs3 = new(Standard.medium, 150, 100, 1);
-        //    dc.RoomStandards.Add(rs1);
-        //    dc.RoomStandards.Add(rs2);
-        //    dc.RoomStandards.Add(rs3);
-        //    dc.SaveChanges();
-        //}
+        public void AddRoomStandard(HotelDbContext dc)
+        {
+            RoomStandard rs1 = new(Standard.medium, 200, 180, 1);
+            RoomStandard rs2 = new(Standard.medium, 180, 150, 2);
+            RoomStandard rs3 = new(Standard.medium, 150, 100, 1);
+            dc.RoomStandards.Add(rs1);
+            dc.RoomStandards.Add(rs2);
+            dc.RoomStandards.Add(rs3);
+            dc.SaveChanges();
+        }
     }
 }

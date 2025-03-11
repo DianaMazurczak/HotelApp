@@ -13,6 +13,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DataValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
+using DataValidator = System.ComponentModel.DataAnnotations.Validator;
+using DataValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
+
 
 namespace WpfApp1
 {
@@ -22,86 +26,101 @@ namespace WpfApp1
     public partial class AddingGuests : Window
     {
         public AddGuestViewModel ViewModel { get; set; }
-        public Hotel CurrentHotel { get; set; }
-        public Guest NewGuest;
-        HotelDbContext context = new();
-        public AddingGuests(Guest newGuest, Hotel currentHotel, HotelDbContext context)
+
+        public AddingGuests(Hotel currentHotel, HotelDbContext context)
         {
             InitializeComponent();
-            ViewModel = new AddGuestViewModel();
+            ViewModel = new AddGuestViewModel(context, currentHotel);
             DataContext = ViewModel;
-            CurrentHotel = currentHotel;
-            NewGuest = newGuest;
-            this.context = context;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ViewModel.IsValid())
             {
-                string name = ViewModel.FirstName;
-                string surname = ViewModel.Surname;
-                string postcode = ViewModel.Postcode;
-                string city = ViewModel.City;
-                string country = ViewModel.Country;
-                string street = ViewModel.Street;
-                string number = ViewModel.Number;
-                City newCity = new();
-                City existiongCity = context.Cities.FirstOrDefault(c => c.Postcode == postcode);
-                if(existiongCity != null)
-                {
-                    newCity = existiongCity;
-                }
-                else 
-                { 
-                    newCity = new(city, postcode, street, number); 
-                    context.Cities.Add(newCity);
-                    context.SaveChanges();
-                }
-                NewGuest = new Guest(name, surname, number, newCity, CurrentHotel);
-                context.Guests.Add(NewGuest);
-                context.SaveChanges();
-                MessageBox.Show("The new guest was saved correctly.", "Save", MessageBoxButton.OK, MessageBoxImage.Information);
+                ViewModel.SaveGuest();
+                MessageBox.Show("Gość został zapisany poprawnie.", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogResult = true; // Zamyka okno z sukcesem
             }
             else
             {
-                MessageBox.Show("The form contains errors. Check the validity of the data entered.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Formularz zawiera błędy. Popraw dane.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            //context.SaveChanges();
-            Close();
+            Close(); // Zamknięcie okna
         }
     }
+
     public class AddGuestViewModel
     {
-        [Required(ErrorMessage = "Pole 'First name' jest wymagane.")]
+        private readonly HotelDbContext _context;
+        private readonly Hotel _hotel;
+
+        // Dane gościa
+        [Required(ErrorMessage = "Pole 'Imię' jest wymagane.")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Pole 'Surname' jest wymagane.")]
+        [Required(ErrorMessage = "Pole 'Nazwisko' jest wymagane.")]
         public string Surname { get; set; }
 
-        [Required(ErrorMessage = "Pole 'Postcode' jest wymagane.")]
+        [Required(ErrorMessage = "Pole 'Nr domu/mieszkania' jest wymagane.")]
+        public string FlatHouseNumber { get; set; }
+
+        // Dane adresowe
+        [Required(ErrorMessage = "Pole 'Miasto' jest wymagane.")]
+        public string CityName { get; set; }
+
+        [Required(ErrorMessage = "Pole 'Kod pocztowy' jest wymagane.")]
         public string Postcode { get; set; }
 
-        [Required(ErrorMessage = "Pole 'City' jest wymagane.")]
-        public string City { get; set; }
-
-        [Required(ErrorMessage = "Pole 'Street' jest wymagane.")]
+        [Required(ErrorMessage = "Pole 'Ulica' jest wymagane.")]
         public string Street { get; set; }
 
-        [Required(ErrorMessage = "Pole 'Flat or house number' jest wymagane.")]
-        public string Number { get; set; }
-
-        [Required(ErrorMessage = "Pole 'Country' jest wymagane.")]
+        [Required(ErrorMessage = "Pole 'Kraj' jest wymagane.")]
         public string Country { get; set; }
 
-        public Guest NewGuest { get; set; }
+        public AddGuestViewModel(HotelDbContext context, Hotel hotel)
+        {
+            _context = context;
+            _hotel = hotel;
+        }
+
         public bool IsValid()
         {
-            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
+            var results = new List<DataValidationResult>();
+            return DataValidator.TryValidateObject(this, new DataValidationContext(this), results, true);
         }
+
+        public void SaveGuest()
+        {
+            // Utworzenie nowego miasta
+            var city = new City(CityName, Postcode, Street, Country);
+
+            // Dodanie miasta do bazy, jeśli nie istnieje
+            var existingCity = _context.Cities.FirstOrDefault(c =>
+                c.CityName == CityName &&
+                c.Postcode == Postcode &&
+                c.Street == Street &&
+                c.Country == Country);
+
+            if (existingCity == null)
+            {
+                _context.Cities.Add(city);
+                _context.SaveChanges();
+            }
+            else
+            {
+                city = existingCity;
+            }
+
+            var newGuest = new Guest(FirstName, Surname, FlatHouseNumber, city, _hotel);
+
+            _context.Guests.Add(newGuest);
+            _context.SaveChanges();
+        }
+
     }
 }

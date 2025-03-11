@@ -7,18 +7,18 @@ namespace ConsoleApp1.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class migration_3003 : IMigrationMetadata
+    public sealed partial class DeleteSpecification : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(migration_3003));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DeleteSpecification));
         
         string IMigrationMetadata.Id
         {
-            get { return "202403301517593_migration_30.03"; }
+            get { return "202503112025449_DeleteSpecification"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

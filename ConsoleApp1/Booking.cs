@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -10,11 +11,11 @@ namespace ConsoleApp1
 {
     public class Booking
     {
-        [Key]
         public int BookingId { get; set; }
 
         public DateTime BookingDate { get; set; }
         public DateTime DateOfRegistration { get; set; }
+        public DateTime DateOfCheckOut { get; set; }
         public int NumberOfAdults { get; set; }
         public int NumberOfChildren { get; set; }
 
@@ -25,13 +26,13 @@ namespace ConsoleApp1
         public virtual Hotel Hotel { get; set; }
 
         public virtual List<BookingRoom> BookingRooms { get; set; } = new();
-        public virtual Specification Specification { get; set; }
 
-        public Booking(Guest guest, DateTime bookingDate, int numberOfAdults, int numberOfChildren, Room r, Hotel hotel)
+        public Booking(Guest guest, DateTime bookingDate, DateTime dateOfCheckOut, int numberOfAdults, int numberOfChildren, Room r, Hotel hotel)
         {
             Hotel = hotel;
             Guest = guest;
             BookingDate = bookingDate;
+            DateOfCheckOut = dateOfCheckOut;
             DateOfRegistration = DateTime.Now;
             NumberOfAdults = numberOfAdults;
             NumberOfChildren = numberOfChildren;

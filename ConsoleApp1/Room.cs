@@ -38,40 +38,40 @@ namespace ConsoleApp1
             Hotel = hotel;
         }
 
-        //public Room(string roomNumber, int floor, int maxNumberOfGuests, int rsId, Hotel hotel):this()
-        //{
-        //    RoomNumber = roomNumber;
-        //    Floor = floor;
-        //    MaxNumberOfGuests = maxNumberOfGuests;
-        //    RsId = rsId;
-        //    Vacancy = true;
-        //    Hotel = hotel;
-        //}
+        public Room(string roomNumber, int floor, int maxNumberOfGuests, int rsId, Hotel hotel) : this()
+        {
+            RoomNumber = roomNumber;
+            Floor = floor;
+            MaxNumberOfGuests = maxNumberOfGuests;
+            RoomStandardId = rsId;
+            Vacancy = true;
+            Hotel = hotel;
+        }
 
         public override string ToString()
         {
             return RoomNumber + " - Max: " + MaxNumberOfGuests;
         }
     }
-    //public class RoomMap : ClassMap<Room>
-    //{
-    //    public RoomMap()
-    //    {
-    //        Map(r => r.RoomId)
-    //            .Index(0)
-    //            .Name("RoomId");
-    //        Map(r => r.RsId)
-    //            .Index(1)
-    //            .Name("RoomStandardId");
-    //        Map(r => r.RoomNumber)
-    //            .Index(2)
-    //            .Name("RoomNumber");
-    //        Map(r => r.Floor)
-    //            .Index(3)
-    //            .Name("Floor");
-    //        Map(r => r.MaxNumberOfGuests)
-    //            .Index(4)
-    //            .Name("MaxNumberOfGuests");
-    //    }
-    //}
+    public class RoomMap : ClassMap<Room>
+    {
+        public RoomMap()
+        {
+            Map(r => r.RoomId)
+                .Index(0)
+                .Name("RoomId");
+            Map(r => r.RoomStandardId)
+                .Index(1)
+                .Name("RoomStandardId");
+            Map(r => r.RoomNumber)
+                .Index(2)
+                .Name("RoomNumber");
+            Map(r => r.Floor)
+                .Index(3)
+                .Name("Floor");
+            Map(r => r.MaxNumberOfGuests)
+                .Index(4)
+                .Name("MaxNumberOfGuests");
+        }
+    }
 }
