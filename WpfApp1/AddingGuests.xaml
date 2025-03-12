@@ -14,13 +14,13 @@
         <Label Content="Postcode" HorizontalAlignment="Left" Height="40" Margin="50,200,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
         <TextBox x:Name="PostcodeTxt" Text="{Binding Postcode}" HorizontalAlignment="Left" Height="40" Margin="155,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
         <Label Content="City" HorizontalAlignment="Left" Height="40" Margin="404,200,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <TextBox x:Name="CityTxt" Text="{Binding City}" HorizontalAlignment="Left" Height="40" Margin="469,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
+        <TextBox x:Name="CityTxt" Text="{Binding CityName}" HorizontalAlignment="Left" Height="40" Margin="469,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
         <Label Content="Street" HorizontalAlignment="Left" Height="40" Margin="50,250,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
         <TextBox x:Name="StreetTxt" Text="{Binding Street}" HorizontalAlignment="Left" Height="40" Margin="155,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
         <Label Content="Country" HorizontalAlignment="Left" Height="40" Margin="50,300,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
         <TextBox x:Name="CountryTxt" Text="{Binding Country}" HorizontalAlignment="Left" Height="40" Margin="155,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
         <Label Content="Flat or House Number" HorizontalAlignment="Left" Height="40" Margin="417,250,0,0" VerticalAlignment="Top" Width="209" FontSize="18"/>
-        <TextBox x:Name="NumberTxt" Text="{Binding Number}" HorizontalAlignment="Left" Height="40" Margin="604,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
+        <TextBox x:Name="NumberTxt" Text="{Binding FlatHouseNumber}" HorizontalAlignment="Left" Height="40" Margin="604,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="18" BorderThickness="0,0,0,0" Opacity="0.7"/>
         <Label Content="Adding Guests" HorizontalAlignment="Center" Height="71" Margin="0,10,0,0" VerticalAlignment="Top" Width="700" Background="#FF719D88" BorderBrush="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold" FontStyle="Italic"/>
         <Button x:Name="SaveBtn" Content="Save" HorizontalAlignment="Left" Height="46" Margin="400,388,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="SaveBtn_Click"/>
         <Button x:Name="CloseBtn" Content="Close" HorizontalAlignment="Left" Height="46" Margin="573,388,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="CloseBtn_Click"/>

@@ -134,7 +134,10 @@ namespace WpfApp1
 
             try
             {
-                using var reader = new StreamReader("C:/Users/dmazu/Desktop/ConsoleApp1/Zeszyt1.csv");
+                string workingDirectory = Environment.CurrentDirectory;
+                string dir = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
+                string file = dir + @"\Zeszyt1.csv";
+                using var reader = new StreamReader(file);
                 using var csv = new CsvReader(reader, configuration);
                 csv.Context.RegisterClassMap<RoomMap>();
                 var records = csv.GetRecords<Room>().ToList();

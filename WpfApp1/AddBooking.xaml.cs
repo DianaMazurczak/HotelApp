@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace WpfApp1
         public DateTime BookingDate { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "Pole 'DateOfCheckOut' jest wymagane.")]
-        public DateTime DateOfCheckOut { get; set; }
+        public DateTime DateOfCheckOut { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "Pole 'Number of adults' jest wymagane.")]
         public int NumOfAdults { get; set; }
@@ -91,7 +92,7 @@ namespace WpfApp1
         private void LoadRoomsAndGuests()
         {
             Rooms = new ObservableCollection<Room>(_context.Rooms.Where(r => r.Hotel.HotelId == _currentHotel.HotelId));
-            Guests = new ObservableCollection<Guest>(_context.Guests.Where(g => g.Hotel.HotelId == _currentHotel.HotelId));
+            Guests = new ObservableCollection<Guest>(_context.Guests);
         }
 
         public bool IsValid()

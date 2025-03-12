@@ -7,90 +7,40 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid x:Name="InitialView" Visibility="Visible" VerticalAlignment="Stretch">
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black"/>
-                <GradientStop Color="#FF206161" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <Grid x:Name="InitialView" Visibility="Visible" VerticalAlignment="Stretch" Background="#FFC2D7C8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="218*"/>
+            <ColumnDefinition Width="305*"/>
+            <ColumnDefinition Width="218*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Calendar Grid.Row="1" Grid.Column="2" Margin="0,0,20,20" FontFamily="Calibri" FontSize="16" Foreground="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Calendar.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFA3AEB9"/>
-                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
-                    <GradientStop Color="#FF718597" Offset="0.375"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Calendar.BorderBrush>
-            <Calendar.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94B6BA" Offset="1"/>
-                    <GradientStop Color="White" Offset="0"/>
-                </LinearGradientBrush>
-            </Calendar.Background>
-        </Calendar>
-        <Image Source="Assets/hotel.jpg" Grid.Column="1" Grid.Row="0" />
-        <ListView x:Name="GuestList" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="16">
+        <ListView x:Name="GuestList" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontFamily="Calibri" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="RoomList" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="16">
+        <ListView x:Name="RoomList" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontFamily="Calibri" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button x:Name="btnAddGuest" Margin="8" Height="40" Content="Add Guest" Foreground="White" BorderBrush="{x:Null}" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Click="btnAddGuest_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF94B6BA"/>
-                        <GradientStop Color="#FF3E7379" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnStatistics" Margin="8" Height="40" Content="Show data" Foreground="White" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnStatistics_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF94B6BA"/>
-                        <GradientStop Color="#FF3E7379" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnAddHotel" Margin="8" Content="Add Hotel" Height="40" Foreground="White" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnAddHotel_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF94B6BA"/>
-                        <GradientStop Color="#FF3E7379" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <ComboBox x:Name="cbHotels" Visibility="Visible" Height="40" Background="#FF3E7379" Foreground="White" BorderBrush="{x:Null}" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Margin="7"/>
-            <Button x:Name="btnAddBooking" Content="Add Booking" Height="40" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Click="btnAddBooking_Click" Margin="7">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF94B6BA"/>
-                        <GradientStop Color="#FF3E7379" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-        </StackPanel>
 
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top">
+            <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="40" Height="47" Background="#FF719D88" Margin="8,50,8,8"><Run Text="       Hotel" FontSize="30"/></TextBlock>
+            <ComboBox x:Name="cbHotels" Visibility="Visible" Foreground="Black" BorderBrush="{x:Null}" FontFamily="Calibri" FontSize="30" FontWeight="Bold" Margin="8,8,8,50"/>
+
+            <Button x:Name="btnAddGuest" Margin="8" Height="40" Content="Add Guest" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Click="btnAddGuest_Click" Background="{x:Null}" BorderBrush="White"/>
+            <Button x:Name="btnStatistics" Margin="8" Height="40" Content="Show data" Foreground="Black" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnStatistics_Click" Background="{x:Null}" BorderBrush="White"/>
+            <Button x:Name="btnAddBooking" Content="Add Booking" Height="40" Foreground="Black" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Click="btnAddBooking_Click" Margin="8,8,8,8" BorderBrush="White" Background="{x:Null}"/>
+            <Button x:Name="btnAddHotel" Content="Add Hotel" Height="40" Foreground="Black" FontFamily="Calibri" FontSize="18" FontWeight="Bold" Click="btnAddHotel_Click" Margin="8,8,8,8" Background="{x:Null}" BorderBrush="White" RenderTransformOrigin="0.5,0.5"/>
+
+        </StackPanel>
     </Grid>
 </Window>

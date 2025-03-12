@@ -5,20 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="AddBooking" Height="756" Width="478">
-    <Grid Background="#FFC2D7C8">
+        Title="AddBooking" Height="789" Width="478">
+    <Grid Background="#FFC2D7C8" Margin="0,0,0,-6">
         <DatePicker x:Name="dpBooking" SelectedDate="{Binding BookingDate}" HorizontalAlignment="Left" Height="29" Margin="60,151,0,0" VerticalAlignment="Top" Width="340"/>
-        <TextBox x:Name="txtNumOfAdults" Text="{Binding NumOfAdults}" HorizontalAlignment="Left" Height="45" Margin="60,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340"/>
-        <TextBox x:Name="txtNumOfChildren" Text="{Binding NumOfChildren}" HorizontalAlignment="Left" Height="45" Margin="60,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="340"/>
-        <ComboBox x:Name="cbRoom" SelectedItem="{Binding Room}" HorizontalAlignment="Left" Height="44" Margin="60,435,0,0" VerticalAlignment="Top" Width="340"/>
-        <ComboBox x:Name="cbGuest" SelectedItem="{Binding Guest}" HorizontalAlignment="Left" Height="45" Margin="60,534,0,0" VerticalAlignment="Top" Width="340"/>
-        <Button x:Name="SaveBtn" Content="Save" HorizontalAlignment="Left" Height="45" Margin="60,635,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="SaveBtn_Click"/>
-        <Button x:Name="CloseBtn" Content="Close" HorizontalAlignment="Left" Height="45" Margin="265,635,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="CloseBtn_Click"/>
-        <Label Content="Enter the number of adults" HorizontalAlignment="Left" Height="45" Margin="60,185,0,0" VerticalAlignment="Top" Width="340" VerticalContentAlignment="Bottom" FontSize="16"/>
+        <DatePicker x:Name="dpBooking2" SelectedDate="{Binding DateOfCheckOut}" HorizontalAlignment="Left" Height="29" Margin="60,235,0,0" VerticalAlignment="Top" Width="340"/>
+        <TextBox x:Name="txtNumOfAdults" Text="{Binding NumOfAdults}" HorizontalAlignment="Left" Height="41" Margin="60,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340"/>
+        <TextBox x:Name="txtNumOfChildren" Text="{Binding NumOfChildren}" HorizontalAlignment="Left" Height="41" Margin="60,418,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="340"/>
+        <ComboBox x:Name="cbRoom" ItemsSource="{Binding Rooms}" SelectedItem="{Binding Room}" HorizontalAlignment="Left" Height="40" Margin="60,508,0,0" VerticalAlignment="Top" Width="340"/>
+        <ComboBox x:Name="cbGuest" ItemsSource="{Binding Guests}" SelectedItem="{Binding Guest}" HorizontalAlignment="Left" Height="40" Margin="60,598,0,0" VerticalAlignment="Top" Width="340"/>
+        <Button x:Name="SaveBtn" Content="Save" HorizontalAlignment="Left" Height="41" Margin="60,689,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="SaveBtn_Click"/>
+        <Button x:Name="CloseBtn" Content="Close" HorizontalAlignment="Left" Height="41" Margin="265,689,0,0" VerticalAlignment="Top" Width="148" Background="#FF719D88" FontSize="20" Click="CloseBtn_Click"/>
+        <Label Content="Enter the number of adults" HorizontalAlignment="Left" Height="41" Margin="60,282,0,0" VerticalAlignment="Top" Width="340" VerticalContentAlignment="Bottom" FontSize="16"/>
         <Label Content="Choose booking date" HorizontalAlignment="Left" Height="45" Margin="60,101,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
-        <Label Content="Enter the number of children" HorizontalAlignment="Left" Height="45" Margin="60,285,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
-        <Label Content="Choose a room" HorizontalAlignment="Left" Height="45" Margin="60,385,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
+        <Label Content="Enter the number of children" HorizontalAlignment="Left" Height="41" Margin="60,373,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
+        <Label Content="Choose a room" HorizontalAlignment="Left" Height="40" Margin="60,463,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
         <Label Content="Booking" HorizontalAlignment="Center" Height="60" Margin="0,10,0,0" VerticalAlignment="Top" Width="478" FontSize="36" FontWeight="Bold" FontStyle="Italic" Background="#FF719D88" HorizontalContentAlignment="Center"/>
-        <Label Content="Choose a guest" HorizontalAlignment="Left" Height="45" Margin="60,484,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
+        <Label Content="Choose a guest" HorizontalAlignment="Left" Height="40" Margin="60,553,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
+        <Label Content="Choose date of checkout" HorizontalAlignment="Left" Height="45" Margin="60,185,0,0" VerticalAlignment="Top" Width="340" FontSize="16" VerticalContentAlignment="Bottom"/>
     </Grid>
 </Window>

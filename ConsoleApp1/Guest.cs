@@ -19,6 +19,7 @@ namespace ConsoleApp1
         public int CityId { get; set; }
         public virtual City City { get; set; }
 
+
         public int? HotelId { get; set; }
         public virtual Hotel Hotel { get; set; }
 

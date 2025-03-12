@@ -119,7 +119,7 @@ namespace WpfApp1
                 throw new InvalidOperationException("Hotel o tej nazwie już istnieje.");
             }
 
-            var newHotel = new Hotel(Name, Phone, existingCity);
+            var newHotel = new Hotel(Name, Phone, city);
             _context.Hotele.Add(newHotel);
             _context.SaveChanges();
         }
